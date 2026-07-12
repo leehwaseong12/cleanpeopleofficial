@@ -271,12 +271,17 @@
     pointer-events: none;
   }
   .video-slide.active { opacity: 1; }
+  .video-slide { overflow: hidden; }
   .video-slide video {
+    position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
     min-height: 100vh;
   }
+  /* 1,2번 영상: 흰 배경이라 자르지 않고 전체 프레임 표시, 여백은 흰색으로 채움 */
+  .video-slide.slide-fit { background: #ffffff; }
+  .video-slide.slide-fit video { object-fit: contain; }
 
   /* 영상 파일 없을 때 플레이스홀더 */
   .video-slide .slide-placeholder {
@@ -992,15 +997,23 @@
 
     <div class="video-slider" id="videoSlider">
 
-      <div class="video-slide active" id="slide-0">
-        <video src="videos/hero-1.mp4" muted playsinline preload="auto"></video>
+      <div class="video-slide slide-fit active" id="slide-0">
+        <video src="videos/hero-4.mp4" muted playsinline preload="auto"></video>
       </div>
 
-      <div class="video-slide" id="slide-1">
-        <video src="videos/hero-2.mp4" muted playsinline preload="auto"></video>
+      <div class="video-slide slide-fit" id="slide-1">
+        <video src="videos/hero-5.mp4" muted playsinline preload="auto"></video>
       </div>
 
       <div class="video-slide" id="slide-2">
+        <video src="videos/hero-1.mp4" muted playsinline preload="auto"></video>
+      </div>
+
+      <div class="video-slide" id="slide-3">
+        <video src="videos/hero-2.mp4" muted playsinline preload="auto"></video>
+      </div>
+
+      <div class="video-slide" id="slide-4">
         <video src="videos/hero-3.mp4" muted playsinline preload="auto"></video>
       </div>
 
@@ -1010,6 +1023,8 @@
       <div class="video-dot active" onclick="goSlide(0)"><div class="video-dot-fill"></div></div>
       <div class="video-dot" onclick="goSlide(1)"><div class="video-dot-fill"></div></div>
       <div class="video-dot" onclick="goSlide(2)"><div class="video-dot-fill"></div></div>
+      <div class="video-dot" onclick="goSlide(3)"><div class="video-dot-fill"></div></div>
+      <div class="video-dot" onclick="goSlide(4)"><div class="video-dot-fill"></div></div>
     </div>
 
     <div class="video-label" id="videoLabel">준공청소</div>
@@ -1021,7 +1036,7 @@
           <path d="M11 4L6 9L11 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <span class="slide-counter"><strong id="slideNum">1</strong> / 3</span>
+      <span class="slide-counter"><strong id="slideNum">1</strong> / 5</span>
       <button class="slide-btn" id="btnNext" onclick="slideNext()" aria-label="다음 영상">
         <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M7 4L12 9L7 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1595,7 +1610,7 @@
 
   // ── 비디오 슬라이더 ──
   const SLIDE_DURATION = 6000; // 6초
-  const slideLabels = ['준공청소', '설비시설 청소', '드론 특수작업'];
+  const slideLabels = ['특수 작업', '공간 관리', '준공청소', '설비시설 청소', '드론 특수작업'];
   let currentSlide = 0;
   let sliderTimer = null;
   let isTransitioning = false;
@@ -1710,6 +1725,11 @@
       }
     });
   });
+
+  initSlider();
+</script>
+</body>
+</html>
 
   initSlider();
 </script>
